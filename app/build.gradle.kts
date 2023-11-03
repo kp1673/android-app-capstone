@@ -1,11 +1,13 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
     namespace = "com.littlelemon.foodordering"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.littlelemon.foodordering"
@@ -18,6 +20,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {
@@ -30,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -50,8 +53,30 @@ android {
 }
 
 dependencies {
+    // Google fonts support
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.2")
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    // Add the glide compose dependency:
+    implementation("com.github.bumptech.glide:compose:1.0.0-alpha.1")
+
+    // Use observeAsstate in compose
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
+
+    // Allow using SharedPreferences in Android Jetpack Compose.
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // Add the Ktor dependencies
+    implementation("io.ktor:ktor-client-android:2.1.3")
+    implementation("io.ktor:ktor-client-content-negotiation:2.1.3")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.1.3")
+
+    implementation("androidx.room:room-runtime:2.6.0")
+    kapt("androidx.room:room-compiler:2.6.0")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    //  implementation("androidx.room:room-ktx:2.6.0")
+
+    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
